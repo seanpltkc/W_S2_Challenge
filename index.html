@@ -6,22 +6,139 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
+    //   if (profile.active) {
+    //     
+    //     if (!reason) {
+    //         return "confirm status manually";
+    //     }
+    //     
+    //     profile.active = false;
+    //     profile.reason = reason;
+    // } else {
+    //    
+    //     profile.active = true;
+    //     delete profile.reason;
+    // }
+    // 
+    // return profile;
 
+    if(profile.active === true){
+      if(reason === undefined){
+      return "confirm status manually";
+      }else{
+        profile.active = false;
+        profile.reason = reason;
+      }
+
+    }else if(profile.active === false){
+     profile.active = true;
+     delete profile.reason;
     }
+   return profile;
+}
+
+// Test cases
+
+// Example 1: Activating a Profile
+let testProfile1 = {
+  active: false,
+  reason: "Not logged in for 30 days"
+};
+let result1 = profileActivation(testProfile1);
+console.log(result1); // Expected output: { active: true }
+    
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+      const cordina = "cordinates"
+    
+      // Check if the coordinates are out of bounds
+    if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
     }
+
+    // Convert 1-based coordinates to 0-based for array indexing
+    let row = y - 1;
+    let col = x - 1;
+
+    // Get the value at the specified coordinates
+    let cell = grid[row][col];
+
+    // Determine the result based on the cell value
+    if (cell === "🟥") {
+        return "🟥 💀";
+    } else if (cell === "🟦") {
+        return "🟦 🥳";
+    } else {
+        return "invalid coordinates";
+    }
+}
+
+    
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      
+      for(let key in obj){
+       if(key.length > 9){
+       return "shorten all prop names to 9 chars or less";
+       }
+      }
+      
+      
+      for(let key in obj){
+      if(obj[key] === 0){
+      obj[key] = false;
+      }else if(obj[key] === 1){
+      obj[key] = true;
+      }else if(obj[key] === null){
+      delete obj[key];
+      }
+      }
+      return obj;
 
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      // if text is empty ot there are no forbidden words, return the original test
+      // if(!text || forbidden.length === 0){
+      // return text;
+      // }
 
+      
+      // let words = text.split(' ');
+
+      // //loop through each word in the text
+      // for(let i = 0; i < words.length; i++){
+      //  //check if the word is in the forbidden array
+      //  if(forbidden.includes(words[i])){
+        
+      //   words[i] = "x".repeat(words[i].length);
+      //  }
+      // }
+      // return words.join(' ');
+      let textArr = text.split(' ');
+      let newText = [];
+
+      if(forbidden.length === 0){
+      return text;
+      }else{
+        for(let i = 0; i < textArr.length; i++){
+        for(let j = 0; j < textArr.length; j++){
+        if(textArr[i] === forbidden[j]){
+        let str = textArr[i];
+        let newStr = "";
+        for(let i = 0; i < str.length; i++){
+         newStr += "x";
+        }
+        textArr[i] = newStr;
+        }
+        }
+        newText.push(textArr[i]);
+        }
+      }
+      return newText.join(' ');
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
